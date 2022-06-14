@@ -1,5 +1,7 @@
 # This is a sample Python script.
 from bs4 import BeautifulSoup
+from bs4.element import NavigableString
+import re
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
@@ -34,12 +36,17 @@ def main():
         else:
             linkedin_icon.find_parent(class_="social-media-icon").decompose()
         social_media_div = social_base_soup.find("div", id="social-media-container")
+        social_media_div.smooth()
+        for string in social_media_div.descendants:
+            if type(string) == NavigableString and re.match("^(?:\r?\n){2,}$", str(string)):
+                string.replaceWith("\r\n")
         social_media_div["class"] = social_media_div["id"]
         del social_media_div["id"]
         social_base_soup.find("h3").string = input("Enter social media heading: ")
         print("")
         print("Result:")
         print("")
+        print(str(social_base_soup.find("h3")))
         print(str(social_media_div))
 
         # Press Ctrl+F8 to toggle the breakpoint.
