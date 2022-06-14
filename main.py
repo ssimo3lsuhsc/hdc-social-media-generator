@@ -19,6 +19,13 @@ def main():
             facebook_icon.parent["href"] = facebook_url
         else:
             facebook_icon.find_parent(class_="social-media-icon").decompose()
+        instagram_url = input("Enter the Instagram URL, or leave blank if the project has no Instagram page: ")
+        instagram_icon = social_base_soup.find(id="instagram-icon")
+        if (instagram_url):
+            instagram_icon["alt"] = input("Enter alternative text for Instagram icon: ")
+            instagram_icon.parent["href"] = instagram_url
+        else:
+            instagram_icon.find_parent(class_="social-media-icon").decompose()
         linkedin_url = input("Enter the LinkedIn URL, or leave blank if the project has no LinkedIn page: ")
         linkedin_icon = social_base_soup.find(id="linkedin-icon")
         if (linkedin_url):
